@@ -1,0 +1,15 @@
+/Users/braedenuvu/Documents/DAGV-1400/project/TestProject/bin/Debug/net8.0/TestProject
+/Users/braedenuvu/Documents/DAGV-1400/project/TestProject/bin/Debug/net8.0/TestProject.deps.json
+/Users/braedenuvu/Documents/DAGV-1400/project/TestProject/bin/Debug/net8.0/TestProject.runtimeconfig.json
+/Users/braedenuvu/Documents/DAGV-1400/project/TestProject/bin/Debug/net8.0/TestProject.dll
+/Users/braedenuvu/Documents/DAGV-1400/project/TestProject/bin/Debug/net8.0/TestProject.pdb
+/Users/braedenuvu/Documents/DAGV-1400/project/TestProject/obj/Debug/net8.0/TestProject.GeneratedMSBuildEditorConfig.editorconfig
+/Users/braedenuvu/Documents/DAGV-1400/project/TestProject/obj/Debug/net8.0/TestProject.AssemblyInfoInputs.cache
+/Users/braedenuvu/Documents/DAGV-1400/project/TestProject/obj/Debug/net8.0/TestProject.AssemblyInfo.cs
+/Users/braedenuvu/Documents/DAGV-1400/project/TestProject/obj/Debug/net8.0/TestProject.csproj.CoreCompileInputs.cache
+/Users/braedenuvu/Documents/DAGV-1400/project/TestProject/obj/Debug/net8.0/TestProject.sourcelink.json
+/Users/braedenuvu/Documents/DAGV-1400/project/TestProject/obj/Debug/net8.0/TestProject.dll
+/Users/braedenuvu/Documents/DAGV-1400/project/TestProject/obj/Debug/net8.0/refint/TestProject.dll
+/Users/braedenuvu/Documents/DAGV-1400/project/TestProject/obj/Debug/net8.0/TestProject.pdb
+/Users/braedenuvu/Documents/DAGV-1400/project/TestProject/obj/Debug/net8.0/TestProject.genruntimeconfig.cache
+/Users/braedenuvu/Documents/DAGV-1400/project/TestProject/obj/Debug/net8.0/ref/TestProject.dll
