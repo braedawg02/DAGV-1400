@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject[] animalPrefabs; // Array of animal prefabs to spawn
-    private float spawnRangeX = 20; // Range in which animals can be spawned on the X-axis
+    private float spawnRangeX = 5; // Range in which animals can be spawned on the X-axis
     private float spawnPosZ = 20; // Position on the Z-axis where animals will be spawned
     private float startDelay = 2; // Delay before the first animal is spawned
     private float spawnInterval = 1.5f; // Interval between spawning animals
@@ -33,6 +33,6 @@ public class SpawnManager : MonoBehaviour
         Vector3 spawnPos = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), 0, spawnPosZ);
 
         // Instantiate the selected animal prefab at the spawn position with its original rotation
-        Instantiate(animalPrefabs[animalIndex], new Vector3(0, 0, 20), animalPrefabs[animalIndex].transform.rotation);
+        Instantiate(animalPrefabs[animalIndex], spawnPos, animalPrefabs[animalIndex].transform.rotation);
     }
 }
