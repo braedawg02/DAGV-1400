@@ -1,0 +1,13 @@
+This is a debug log marking curret bugs
+
+bugs
+Balloon
+-Balloon doesn't go up after pressing spacebar
+-Balloon can go way too high
+
+Background
+-doesn't move until game over
+-laggy movement
+
+spawn manager
+-objects aren't spawned
