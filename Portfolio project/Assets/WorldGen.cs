@@ -8,36 +8,41 @@ public class WorldGen : MonoBehaviour
     public GameObject[] mediumTilePrefabs; // Array of tile prefabs to spawn
     public GameObject[] smallTilePrefabs;
     private Mesh test; // Array of tile prefabs to spawn
-    
-    [SerializeField]private int worldSize = 200; // Size of the world
-    
+
+    [SerializeField] private int worldSize = 200; // Size of the world
+
 
     // Start is called before the first frame update
     void Start()
     {
-     
+
         instantiateTiles();
     }
 
- 
+
     // Function to instantiate tiles
     void instantiateTiles()
     {
         int largeTileAmount = Random.Range(0, 16);
-        
+
         int upperBound = (16 - largeTileAmount) * 4;
+        Debug.Log("upperBound: " + upperBound);
 
         int mediumTileAmount = Random.Range(0, upperBound);
-        
-        int smallTileAmount = Random.Range(0, (upperBound - mediumTileAmount) * 4);
-        
-        Debug.Log("largeTileAmount: " + largeTileAmount + ", " + "mediumTileAmount: " + mediumTileAmount + ", " + "smallTileAmount: " + smallTileAmount);
+
+        int smallTileAmount =256 - (largeTileAmount * 16) - (mediumTileAmount * 4);
+
+        Debug.Log("largeTileAmount: " + largeTileAmount + ", " + "mediumTileAmount: " + mediumTileAmount + ", " + "smallTileAmount: " + smallTileAmount + ". Total spaces occupied: " + ((largeTileAmount * 16) + (mediumTileAmount * 4) + smallTileAmount));
         int placedTiles = 0;
         List<Vector3> occupiedPositions = new List<Vector3>(); // List to store occupied positions
 
         // Randomly place large tiles
         do
         {
+            if (largeTileAmount == 0)
+            {
+                break;
+            }
             int x = (Random.Range(-2, 2) * 50) + 25;
             int z = (Random.Range(-2, 2) * 50) + 25;
             int y = 0;
