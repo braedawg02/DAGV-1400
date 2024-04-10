@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 795004051107301305}
   m_Layer: 0
   m_Name: Terrain 4
-  m_TagString: Untagged
+  m_TagString: Medium
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

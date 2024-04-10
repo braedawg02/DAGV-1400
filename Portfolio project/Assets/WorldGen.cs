@@ -1,76 +1,159 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
+public class Tile{
+    public string Id { get; }
+    public string Name { get; }
+    public int Size { get; }
+    public int Row { get; }
+    public int Col { get; }
+
+    public Tile(string name, int row, int col){
+        Id = Guid.NewGuid().ToString("N").Substring(0, 9);
+        Name = name;
+        switch (name)
+        {
+            case "L":
+                Size = 16;
+                break;
+            case "M":
+                Size = 4;
+                break;
+            default:
+                Size = 1;
+                break;
+        }
+        Row = row;
+        Col = col;
+    }
+}
 public class WorldGen : MonoBehaviour
 {
-    public GameObject[] largeTilePrefabs; // Array of tile prefabs to spawn
-    public GameObject[] mediumTilePrefabs; // Array of tile prefabs to spawn
-    public GameObject[] smallTilePrefabs;
-    private Mesh test; // Array of tile prefabs to spawn
+    public GameObject[] largeTilePrefabs; // Large tiles
+    public GameObject[] mediumTilePrefabs; // Medium tiles
+    public GameObject[] smallTilePrefabs; // Small tiles
 
-    [SerializeField] private int worldSize = 200; // Size of the world
+    [SerializeField] private int worldSize = 64; 
+    private Tile [,] grid;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        grid = new Tile[worldSize, worldSize];
+        instantiateTileGrid();
         instantiateTiles();
     }
+bool IsValidPlacement(Tile tile, int row, int col)
+{
+    for (int i = row; i < Math.Min(row + tile.Size, worldSize); i++)
+    {
+        for (int j = col; j < Math.Min(col + tile.Size, worldSize); j++)
+        {
+            if (grid[i, j] != null)
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
 
 
     // Function to instantiate tiles
-    void instantiateTiles()
+    void instantiateTileGrid()
     {
-        int largeTileAmount = Random.Range(0, 16);
-
+        int largeTileAmount = UnityEngine.Random.Range(0, 8)+ UnityEngine.Random.Range(0, 8);
         int upperBound = (16 - largeTileAmount) * 4;
-        Debug.Log("upperBound: " + upperBound);
-
-        int mediumTileAmount = Random.Range(0, upperBound);
-
+        int mediumTileAmount = UnityEngine.Random.Range(0, upperBound/2) + UnityEngine.Random.Range(0, upperBound/2);
         int smallTileAmount =256 - (largeTileAmount * 16) - (mediumTileAmount * 4);
 
         Debug.Log("largeTileAmount: " + largeTileAmount + ", " + "mediumTileAmount: " + mediumTileAmount + ", " + "smallTileAmount: " + smallTileAmount + ". Total spaces occupied: " + ((largeTileAmount * 16) + (mediumTileAmount * 4) + smallTileAmount));
-        int placedTiles = 0;
-        List<Vector3> occupiedPositions = new List<Vector3>(); // List to store occupied positions
 
-        // Randomly place large tiles
-        do
+        for (int i = 0; i < largeTileAmount; i++)
         {
-            if (largeTileAmount == 0)
-            {
-                break;
-            }
-            int x = (Random.Range(-2, 2) * 50) + 25;
-            int z = (Random.Range(-2, 2) * 50) + 25;
-            int y = 0;
-            int index = Random.Range(0, largeTilePrefabs.Length);
-            Vector3 position = new Vector3(x, y, z);
-
-            // Check if the position is already occupied
-            if (!IsPositionOccupied(position, occupiedPositions))
-            {
-                GameObject tile = Instantiate(largeTilePrefabs[index], position, Quaternion.identity);
-                placedTiles++;
-                occupiedPositions.Add(position); // Add the occupied position to the list
-            }
-
-        } while (placedTiles < largeTileAmount);
-    }
-
-    bool IsPositionOccupied(Vector3 position, List<Vector3> occupiedPositions)
-    {
-        foreach (Vector3 occupiedPosition in occupiedPositions)
-        {
-            // Check if the distance between the positions is less than the minimum distance
-            if (Vector3.Distance(position, occupiedPosition) < 10f)
-            {
-                return true; // Position is occupied
+            while(true){
+                int row = UnityEngine.Random.Range(0, worldSize-16);
+                int col = UnityEngine.Random.Range(0, worldSize-16);
+                var tile = new Tile("L", row, col);
+                if (IsValidPlacement(tile, row, col))
+                {
+                    for (int k = row; k < row + tile.Size; k++)
+                    {
+                        for (int l = col; l < col + tile.Size; l++)
+                        {
+                            grid[k, l] = tile;
+                        }
+                    }
+                    break;
+                }
             }
         }
-        return false; // Position is not occupied
+
+        for (int i = 0; i < mediumTileAmount; i++)
+        {
+            while(true){
+                int row = UnityEngine.Random.Range(0, worldSize-4);
+                int col = UnityEngine.Random.Range(0, worldSize-4);
+                var tile = new Tile("M", row, col);
+                if (IsValidPlacement(tile, row, col))
+                {
+                    for (int k = row; k < row + tile.Size; k++)
+                    {
+                        for (int l = col; l < col + tile.Size; l++)
+                        {
+                            grid[k, l] = tile;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        for (int i = 0; i < worldSize; i++)
+        {
+            for (int j = 0; j < worldSize; j++)
+            {
+                if (grid[i, j] == null)
+                {
+                    grid[i, j] = new Tile("S", i, j);
+                }
+            }
+        }
+
+     
     }
+    void instantiateTiles(){
+        for (int i = 0; i < worldSize; i++)
+        {
+            for (int j = 0; j < worldSize; j++)
+            {
+                GameObject prefabToInstantiate = null;
+                float offset = 0;
+                switch (grid[i, j].Name)
+                {
+                    case "L":
+                        prefabToInstantiate = largeTilePrefabs[UnityEngine.Random.Range(0, largeTilePrefabs.Length)];
+                        offset = 1.5f;
+                        break;
+                    case "M":
+                        prefabToInstantiate = mediumTilePrefabs[UnityEngine.Random.Range(0, mediumTilePrefabs.Length)];
+                        offset = 0.5f;
+                        break;
+                    default:
+                        prefabToInstantiate = smallTilePrefabs[UnityEngine.Random.Range(0,UnityEngine.Random.Range(0, smallTilePrefabs.Length))];
+                        break;
+                        
+                }
+                if (prefabToInstantiate != null)
+                {
+                    Vector3 position = new Vector3(i - offset, 0, j - offset);
+                    Instantiate(prefabToInstantiate, position, Quaternion.identity);
+                }
+            }
+        }
+    }
+   
 }
 
