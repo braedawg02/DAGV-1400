@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7075398960884471540}
   - component: {fileID: 4016943089370303747}
   m_Layer: 0
-  m_Name: Terrain 2
+  m_Name: Medium Terrain 2
   m_TagString: Medium
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

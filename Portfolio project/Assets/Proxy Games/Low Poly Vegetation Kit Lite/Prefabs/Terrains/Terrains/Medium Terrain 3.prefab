@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2661776477001834443}
   - component: {fileID: 7221527851392748855}
   m_Layer: 0
-  m_Name: Terrain 3
-  m_TagString: Medium
+  m_Name: Medium Terrain 3
+  m_TagString: Hill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

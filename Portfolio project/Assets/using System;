@@ -1,0 +1,127 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Tile
+{
+    public string Id { get; }
+    public string Name { get; }
+    public int Size { get; }
+    public int Row { get; }
+    public int Col { get; }
+
+    public Tile(string name, int row, int col)
+    {
+        Id = Guid.NewGuid().ToString().Substring(0, 9);
+        Name = name;
+        switch (name)
+        {
+            case "L":
+                Size = 10;
+                break;
+            case "M":
+                Size = 5;
+                break;
+            default:
+                Size = 1;
+                break;
+        }
+        Row = row;
+        Col = col;
+    }
+}
+
+class Program
+{
+    static bool IsValidPlacement(Tile[][] grid, Tile tile, int row, int col)
+    {
+        // Given the starting row and column, check if the tile can be placed
+        for (int i = row; i < row + tile.Size; i++)
+        {
+            for (int j = col; j < col + tile.Size; j++)
+            {
+                if (i >= grid.Length || j >= grid[0].Length || grid[i][j].Name != "S")
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    static void PrintGrid(Tile[][] grid)
+    {
+        Console.WriteLine("Grid:\n");
+        for (int i = 0; i < grid.Length; i++)
+        {
+            Console.WriteLine(string.Join(" ", grid[i].Select(tile => tile != null ? tile.Name : "null")));
+        }
+        Console.WriteLine("-------------------------------------------------------\n");
+    }
+
+    static Tile[][] PlaceTiles(int gridSize, int largeCount, int mediumCount)
+    {
+        Tile[][] grid = new Tile[gridSize][];
+        for (int i = 0; i < gridSize; i++)
+        {
+            grid[i] = new Tile[gridSize];
+            for (int j = 0; j < gridSize; j++)
+            {
+                grid[i][j] = new Tile("S", -1, -1);
+            }
+        }
+
+        List<(string Name, int Size)> tileSizes = new List<(string, int)>
+        {
+            ("L", 10),
+            ("M", 5),
+            ("S", 1)
+        };
+
+        List<int> tileCounts = new List<int>
+        {
+            largeCount,
+            mediumCount
+        };
+
+        // Place the large and medium tiles
+        for (int i = 0; i < tileSizes.Count; i++)
+        {
+            string name = tileSizes[i].Name;
+            int count = tileCounts[i];
+            for (int j = 0; j < count; j++)
+            {
+                while (true)
+                {
+                    int row = new Random().Next(0, gridSize - tileSizes[i].Size);
+                    int col = new Random().Next(0, gridSize - tileSizes[i].Size);
+                    Tile tile = new Tile(name, row, col);
+                    if (IsValidPlacement(grid, tile, row, col))
+                    {
+                        for (int k = row; k < row + tileSizes[i].Size; k++)
+                        {
+                            for (int l = col; l < col + tileSizes[i].Size; l++)
+                            {
+                                grid[k][l] = tile;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        return grid;
+    }
+
+    static void Main()
+    {
+        int gridSize = 40;
+        int largeCount = 5;
+        int mediumCount = 15;
+
+        Tile[][] grid = PlaceTiles(gridSize, largeCount, mediumCount);
+
+        PrintGrid(grid);
+    }
+}

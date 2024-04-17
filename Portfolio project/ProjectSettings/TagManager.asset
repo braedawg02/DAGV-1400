@@ -4,10 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Terrain
-  - Big
-  - Medium
-  - Small
+  - Flat
+  - Water
+  - Hill
   layers:
   - Default
   - TransparentFX
