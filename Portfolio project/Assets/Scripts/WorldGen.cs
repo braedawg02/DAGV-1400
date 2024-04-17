@@ -46,15 +46,19 @@ public class WorldGen : MonoBehaviour
     public int largeRelativeSize;
     public int mediumRelativeSize;
     public int smallRelativeSize;
+    public bool isGenerationComplete;
     public Tile[,] grid;
 
     // Start is called before the first frame update
     void Start()
-    {// worldSize = 256
-        UnityEngine.Debug.Log("largeRelativeSize: " + largeRelativeSize + ", " + "mediumRelativeSize: " + mediumRelativeSize + ", " + "smallRelativeSize: " + smallRelativeSize);
+    {
+        UnityEngine.Debug.Log("WorldGen: Starting world generation");
+        isGenerationComplete = false;
         grid = new Tile[worldSize, worldSize];
         instantiateTileGrid();
         instantiateTiles();
+        isGenerationComplete = true;
+        UnityEngine.Debug.Log("WorldGen: Finished world generation");
     }
     bool IsValidPlacement(Tile tile, int row, int col)
     {
@@ -180,10 +184,10 @@ public class WorldGen : MonoBehaviour
                         {
                             // Instantiate your Large tile here
                             prefabToInstantiate = largeTilePrefabs[UnityEngine.Random.Range(0, largeTilePrefabs.Length)];
-                         
+
                         }
                         relativeOffset = 1.5f;
-                        
+
                         break;
                     case "M":
                         if (i % 2 == 0 && j % 2 == 0) // Check if the tile is the first tile of a 2x2 group
@@ -203,22 +207,30 @@ public class WorldGen : MonoBehaviour
                     Vector3 position = new Vector3((i * offset) + (offset * relativeOffset) - 193.75f, 0, (j * offset) + (offset * relativeOffset) - 193.75f);
                     Quaternion rotation = Quaternion.Euler(0, UnityEngine.Random.Range(0, 3) * 90, 0);
                     GameObject tile = Instantiate(prefabToInstantiate, position, rotation);
+                    tile.transform.parent = transform;
+
                     if (tile.CompareTag("Water"))
                     {
                         GameObject waterTile = Instantiate(waterTilePrefab, position, rotation);
-                        waterTile.transform.localPosition = new Vector3(position.x, -1, position.z);
+                        waterTile.transform.localPosition = new Vector3(position.x, -1f, position.z);
                         switch (grid[i, j].Name)
                         {
 
                             case "L":
                                 waterTile.transform.localScale = new Vector3(1, 1, 1);
+                                waterTile.transform.parent = transform;
+
 
                                 break;
                             case "M":
                                 waterTile.transform.localScale = new Vector3(0.5f, 1, 0.5f);
+                                waterTile.transform.parent = transform;
+
                                 break;
                             default:
                                 waterTile.transform.localScale = new Vector3(0.25f, 1, 0.25f);
+                                waterTile.transform.parent = transform;
+
                                 break;
                         }
                     }
