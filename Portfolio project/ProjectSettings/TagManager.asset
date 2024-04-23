@@ -8,6 +8,9 @@ TagManager:
   - Water
   - Hill
   - Medium
+  - Tree
+  - Pickup
+  - Rock
   - Foilage
   layers:
   - Default

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7495939102546036740}
   - component: {fileID: 9165210690893652837}
   - component: {fileID: 9103677832778719975}
+  - component: {fileID: -1008974960116111799}
   m_Layer: 0
   m_Name: Tree 4
   m_TagString: Foilage
@@ -91,7 +92,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5603335818341881996}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 6675d9253107145e78bc68f40a7bb12d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -107,3 +108,30 @@ CapsuleCollider:
   m_Height: 10.994664
   m_Direction: 1
   m_Center: {x: 0.030000001, y: 5.4087253, z: -0.05}
+--- !u!54 &-1008974960116111799
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5603335818341881996}
+  serializedVersion: 4
+  m_Mass: 100
+  m_Drag: 0
+  m_AngularDrag: 10
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

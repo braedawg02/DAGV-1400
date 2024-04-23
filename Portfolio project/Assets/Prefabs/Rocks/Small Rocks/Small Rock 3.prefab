@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 806270326970722504}
   m_Layer: 0
   m_Name: Small Rock 3
-  m_TagString: Untagged
+  m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -68,7 +68,7 @@ public class FoilageGenerator : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
             {
                 // If the raycast hits a water tile, skip this iteration
-                if (hit.collider.gameObject.tag == "Water" || hit.collider.gameObject.tag == "Foilage")
+                if (hit.collider.gameObject.tag == "Water" || hit.collider.gameObject.tag == "Foilage" || hit.collider.gameObject.tag == "Tree" || hit.collider.gameObject.tag == "Rock")
                 {
                     continue;
                 }
@@ -77,8 +77,21 @@ public class FoilageGenerator : MonoBehaviour
             int foilageIndex = Random.Range(0, prefabToInstantiate.Length);
             GameObject foilage = Instantiate(prefabToInstantiate[foilageIndex], position, rotation);
             foilage.transform.parent = transform;
-            float randomSize = UnityEngine.Random.Range(0.9f,1.1f);
-            Vector3 newSize = new Vector3(randomSize,randomSize,randomSize);
+            float randomSize;
+            Vector3 newSize;
+            if (prefabToInstantiate == plantPrefabs || prefabToInstantiate == SmallRockPrefabs)   //if the prefab is a plant, randomize the size
+            {
+                 randomSize = UnityEngine.Random.Range(2f, 3f);
+                 newSize = new Vector3(randomSize, randomSize, randomSize);
+                foilage.transform.localScale = newSize;
+            }
+            else
+            {
+                 randomSize = UnityEngine.Random.Range(0.9f, 1.1f);
+                 newSize = new Vector3(randomSize, randomSize, randomSize);
+                foilage.transform.localScale = newSize;
+            }
+
             foilage.transform.localScale = newSize;
 
 
