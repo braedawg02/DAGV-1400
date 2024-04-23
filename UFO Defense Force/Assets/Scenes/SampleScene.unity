@@ -132,8 +132,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 626143057}
+  - component: {fileID: 626143058}
   m_Layer: 0
-  m_Name: SpawnManager
+  m_Name: EnemySpawnManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,6 +155,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &626143058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626143056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d53c5310fe2504835acb1c5590058a4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefabs:
+  - {fileID: 5875948026334806234, guid: b5e5d9cc34bd24c4494be59ceb69d119, type: 3}
+  - {fileID: 5875948026334806234, guid: ab5c3def1ffb64f0c8dd27376433ad55, type: 3}
+  - {fileID: 5875948026334806234, guid: 4eeb81d0f5cb34b4c852ab6447731349, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

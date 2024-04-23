@@ -10,7 +10,14 @@ public class MoveForward : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameObject.tag == "Untagged"){
+        speed = 20f;
         transform.Translate(Vector3.up * speed * Time.deltaTime);
+        }
+        else if (gameObject.tag == "Enemy"){
+        speed = 5f;
+        transform.Translate(Vector3.down * speed * Time.deltaTime);
+        }
 
     }
     void OnTriggerEnter(Collider other)
