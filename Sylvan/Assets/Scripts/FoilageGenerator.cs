@@ -65,7 +65,27 @@ public class FoilageGenerator : MonoBehaviour
 
             Ray ray = new Ray(new Vector3(x, Count, z), Vector3.down);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+            if (prefabToInstantiate == cliffPrefabs)
+            {
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+                {
+                    // If the raycast hits a water tile, skip this iteration
+                    if (hit.collider.gameObject.tag == "Water" || hit.collider.gameObject.tag == "Foilage" || hit.collider.gameObject.tag == "Tree" || hit.collider.gameObject.tag == "Rock" || hit.collider.gameObject.tag == "Hill")
+                    {
+                        continue;
+                    }
+                    position = hit.point;
+                    Collider[] colliders = Physics.OverlapSphere(position, 1f);
+                    foreach (Collider collider in colliders)
+                    {
+                        if (collider.gameObject.tag != "Terrain")
+                        {
+                            continue;
+                        }
+                    }
+                }
+            }
+            else if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
             {
                 // If the raycast hits a water tile, skip this iteration
                 if (hit.collider.gameObject.tag == "Water" || hit.collider.gameObject.tag == "Foilage" || hit.collider.gameObject.tag == "Tree" || hit.collider.gameObject.tag == "Rock")
@@ -73,22 +93,30 @@ public class FoilageGenerator : MonoBehaviour
                     continue;
                 }
                 position = hit.point;
+                Collider[] colliders = Physics.OverlapSphere(position, 1f);
+                foreach (Collider collider in colliders)
+                {
+                    if (collider.gameObject.tag != "Terrain")
+                    {
+                        continue;
+                    }
+                }
             }
             int foilageIndex = Random.Range(0, prefabToInstantiate.Length);
             GameObject foilage = Instantiate(prefabToInstantiate[foilageIndex], position, rotation);
             foilage.transform.parent = transform;
             float randomSize;
             Vector3 newSize;
-            if (prefabToInstantiate == plantPrefabs || prefabToInstantiate == SmallRockPrefabs)   //if the prefab is a plant, randomize the size
+            if (prefabToInstantiate == plantPrefabs)   //if the prefab is a plant, randomize the size
             {
-                 randomSize = UnityEngine.Random.Range(2f, 3f);
-                 newSize = new Vector3(randomSize, randomSize, randomSize);
+                randomSize = UnityEngine.Random.Range(2f, 2.5f);
+                newSize = new Vector3(randomSize, randomSize, randomSize);
                 foilage.transform.localScale = newSize;
             }
             else
             {
-                 randomSize = UnityEngine.Random.Range(0.9f, 1.1f);
-                 newSize = new Vector3(randomSize, randomSize, randomSize);
+                randomSize = UnityEngine.Random.Range(0.9f, 1.1f);
+                newSize = new Vector3(randomSize, randomSize, randomSize);
                 foilage.transform.localScale = newSize;
             }
 

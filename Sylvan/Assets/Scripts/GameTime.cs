@@ -6,7 +6,10 @@ using UnityEngine;
 public class GameTime : MonoBehaviour
 {
     public Transform Sun;
-    public Light light;
+    public new Light light;
+    public static float timeScale = 1f;
+    public static bool isGamePaused = false;
+
     // Start is called before the first frame update
     void Start()
     {
