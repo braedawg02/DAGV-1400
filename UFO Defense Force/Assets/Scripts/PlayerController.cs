@@ -5,39 +5,39 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GameObject LaserPrefab;
-        public float moveSpeed = 5f;        
-        private bool canShoot = true;
+    public float moveSpeed = 10f;
+    private bool canShoot = true;
+    public bool gameActive = false;
 
-         // Adjust the speed as needed
+    // Adjust the speed as needed
 
     // Update is called once per frame
     void Update()
     {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float newPosition = transform.position.x + horizontalInput * moveSpeed * Time.deltaTime;
-        newPosition = Mathf.Clamp(newPosition, -8.5f, 8.5f);
-        transform.position = new Vector3(newPosition, transform.position.y, transform.position.z);
-        
-
-        if (Input.GetKeyDown(KeyCode.Space) && canShoot)
+        if (MainMenu.isGameActive == true)
         {
-            StartCoroutine(ShootLaser());
-            canShoot = false;
-        }
+            float horizontalInput = Input.GetAxisRaw("Horizontal");
+            float newPosition = transform.position.x + horizontalInput * moveSpeed * Time.deltaTime;
+            newPosition = Mathf.Clamp(newPosition, -8.5f, 8.5f);
+            transform.position = new Vector3(newPosition, transform.position.y, transform.position.z);
+
+
+            if (Input.GetKeyDown(KeyCode.Space) && canShoot)
+            {
+                StartCoroutine(ShootLaser());
+                canShoot = false;
+            }
         }
 
-        private IEnumerator ShootLaser()
+        IEnumerator ShootLaser()
         {
-        Instantiate(LaserPrefab, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+            Instantiate(LaserPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
 
-        // Set the speed of the instantiated laser
-        LaserPrefab.GetComponent<MoveForward>().speed = 10f;
-        yield return new WaitForSeconds(0.2f);
-        canShoot = true;
+            // Set the speed of the instantiated laser
+            LaserPrefab.GetComponent<MoveForward>().speed = 10f;
+            yield return new WaitForSeconds(0.2f);
+            canShoot = true;
         }
+    }
 
-        void OnTriggerEnter(Collider other)
-        {
-            Destroy(gameObject);
-        }
-}
+ }

@@ -18,25 +18,29 @@ public class Destroyoutofbounds : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else if(transform.position.y < -5)
+        else if (transform.position.y < -5)
         {
             Destroy(gameObject);
-            Debug.Log("Game Over!");
-            Time.timeScale = 0;
+            MainMenu.EndGame();
+
         }
-        else if(transform.position.x > 15)
-        {
-            Destroy(gameObject);
-        }
-        else if(transform.position.x < -15)
+        else if (transform.position.x > 15)
         {
             Destroy(gameObject);
         }
-        else if(transform.position.z > 15)
+        else if (transform.position.x < -15)
         {
             Destroy(gameObject);
         }
-        else if(transform.position.z < -10)
+        else if (transform.position.z > 15)
+        {
+            Destroy(gameObject);
+        }
+        else if (transform.position.z < -10)
+        {
+            Destroy(gameObject);
+        }
+        else if (MainMenu.isGameActive == false)
         {
             Destroy(gameObject);
         }

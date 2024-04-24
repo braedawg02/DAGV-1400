@@ -12,18 +12,27 @@ public class MoveBG : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
         COLLIDER_BOTTOM = BG.GetComponent<BoxCollider>().bounds.min.y;
         RESET_POSITION = transform.position;
+       
     }
     void Update()
     {
+        if(MainMenu.isGameActive == true)
+        {
+            MoveBackground();
+        }
+    }
+    void MoveBackground()
+    {
         transform.Translate(Vector3.down * SPEED * Time.deltaTime);
-        if (transform.position.y < COLLIDER_BOTTOM)
+          if (transform.position.y < COLLIDER_BOTTOM)
         {
             transform.position = RESET_POSITION;
         }
-     
     }
+    
 
 
 
