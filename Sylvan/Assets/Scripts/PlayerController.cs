@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
                 GameObject targetObject = hit.collider.gameObject;
                 Debug.Log("Player is looking at: " + targetObject.name);
             }
-            if (hit.collider.gameObject.tag == "Tree" && CurrentItemID == 5)
+            if (hit.collider.gameObject.tag == "Tree") //&& CurrentItemID == 5)
             {
                 Rigidbody targetRigidbody = hit.collider.gameObject.GetComponent<Rigidbody>();
                 if (targetRigidbody != null)
